@@ -10,6 +10,7 @@ public class Track implements Serializable {
     private String path;        /* File path */
     private long id;            /* ID used to trace the file */
     private String size;        /* File size  */
+    private String artworkpath; /* Artwork path*/
 
     /* private int duration etc..*/
     /* ......................... */
@@ -26,6 +27,14 @@ public class Track implements Serializable {
         this.artistName = artistName;
         this.path = path;
         this.id = id;
+    }
+
+    public Track(String trackName, String artistName, String path, long id, String artworkpath) {
+        this.trackName = trackName;
+        this.artistName = artistName;
+        this.path = path;
+        this.id = id;
+        this.artworkpath = artworkpath;
     }
 
 
@@ -60,5 +69,13 @@ public class Track implements Serializable {
 
     public void setID(long id) {
         this.id = id;
+    }
+
+    public String getArtworkPath() {
+        return this.artworkpath;
+    }
+
+    public void setArtworkPath(String artworkpath) {
+        this.artworkpath = artworkpath;
     }
 }

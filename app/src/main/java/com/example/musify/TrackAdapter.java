@@ -1,9 +1,14 @@
 package com.example.musify;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +21,14 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
     private List<Track> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context context;
+
 
     // data is passed into the constructor
     TrackAdapter(Context context, List<Track> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -38,6 +46,14 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
 
         holder.trackNameV.setText(track.getTrackName());
         holder.artistNameV.setText(track.getArtistName());
+
+        String artworkpath = track.getArtworkPath();
+        if (artworkpath != "default") { /* Default Artwork*/
+            holder.artworkV.setImageURI(Uri.parse(track.getArtworkPath()));
+        }
+
+
+
 
     }
 
@@ -66,13 +82,53 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView trackNameV;
         TextView artistNameV;
+        ImageView artworkV;
+        ImageButton moreBtnV;
 
         ViewHolder(View itemView) {
             super(itemView);
             trackNameV = itemView.findViewById(R.id.trackName);
             artistNameV = itemView.findViewById(R.id.artistName);
+            artworkV = itemView.findViewById(R.id.trackArtwork);
+            moreBtnV = itemView.findViewById(R.id.trackMore);
+
+            moreBtnV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //creating a popup menu
+                    PopupMenu popup = new PopupMenu(context, moreBtnV);
+                    //inflating menu from xml resource
+                    popup.inflate(R.layout.popup_menu);
+                    //adding click listener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.one:
+                                    //handle menu1 click
+                                    return true;
+                                case R.id.two:
+                                    //handle menu2 click
+                                    return true;
+                                case R.id.three:
+                                    //handle menu3 click
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    //displaying the popup
+                    popup.show();
+
+                }
+            });
+
+
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {

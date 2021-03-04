@@ -35,9 +35,18 @@ public class FileManager {
                     String artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
                     String path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
                     long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-                    String size = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE));
+                    String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                    String artworkpath = String.valueOf(Uri.parse("content://media/external/audio/media/" + id + "/albumart"));
 
-                    allTracks.add(new Track(name, artist, path, id));
+
+                    /* If artwork doesnt exist , use default TODO ???
+                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                    mmr.setDataSource(artworkpath);
+                    try{mmr.getEmbeddedPicture();}
+                    catch(Exception e) {artworkpath = "default";}
+                    */
+
+                    allTracks.add(new Track(name, artist, path, id, artworkpath));
 
                 } while (cursor.moveToNext());
 

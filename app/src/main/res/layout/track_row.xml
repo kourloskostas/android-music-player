@@ -6,12 +6,13 @@
 
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/trackArtwork"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
         android:cropToPadding="true"
         android:scaleType="fitXY"
+        android:src="@drawable/ic_music_note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +27,7 @@
         android:text="Funky Monks"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/cover"
+        app:layout_constraintStart_toEndOf="@+id/trackArtwork"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -39,7 +40,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/cover"
+        app:layout_constraintStart_toEndOf="@+id/trackArtwork"
         app:layout_constraintTop_toBottomOf="@+id/trackName" />
 
 

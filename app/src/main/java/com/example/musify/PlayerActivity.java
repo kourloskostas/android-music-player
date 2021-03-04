@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +21,18 @@ import java.util.concurrent.TimeUnit;
 public class PlayerActivity extends AppCompatActivity {
 
     ImageButton playBtnV;
+    static MediaPlayer mediaPlayer;
+    ImageButton previousBtnV;
+    ImageButton nextBtnV;
     TextView trackNameV;
     TextView artistNameV;
     TextView current_timeV;
     TextView total_timeV;
     SeekBar seekBarV;
+    ImageView artWorkV;
 
     boolean playing;
-    MediaPlayer mediaPlayer;
+    int position;
     private Handler mediaHandler = new Handler();
     /*
      *   Updates song time on slider and starttime TextView
@@ -84,22 +89,46 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        release();
+        initV(); /* Initialize Views */
+        // Get track EXTRA and set views , titles etc
+        Track track = (Track) getIntent().getSerializableExtra("TRACK");
+        position = getIntent().getIntExtra("POSITION", 1);
+
+        Toast.makeText(getApplicationContext(), track.getArtworkPath(), Toast.LENGTH_SHORT).show();
+
+        // Play selected track
+        playTrack(track);
+
+
+    }
+
+    // Initialize Views
+    private void initV() {
+
+        artWorkV = findViewById(R.id.artWork);
         trackNameV = findViewById(R.id.title);
         artistNameV = findViewById(R.id.artist);
         current_timeV = findViewById(R.id.currenttime);
         total_timeV = findViewById(R.id.totaltime);
         seekBarV = findViewById(R.id.seekBar);
         playBtnV = findViewById(R.id.play);
+        previousBtnV = findViewById(R.id.previous);
+        nextBtnV = findViewById(R.id.next);
+    }
 
-        // Get track EXTRA
-        Track track = (Track) getIntent().getSerializableExtra("TRACK");
+    /* Play selected track*/
+    private void playTrack(Track track) {
+
+        /* Release previously assigned mediaplayer */
+        release();
+
         trackNameV.setText(track.getTrackName());
         artistNameV.setText(track.getArtistName());
-
+        //if (artworkpath != null) { /* Default Artwork*/}
+        artWorkV.setImageURI(Uri.parse(track.getArtworkPath()));
 
         Toast.makeText(getApplicationContext(), "Playing...", Toast.LENGTH_SHORT).show();
-
-
         // Get track Uri
         Uri contentUri = ContentUris.withAppendedId(
                 android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, track.getID());
@@ -168,25 +197,71 @@ public class PlayerActivity extends AppCompatActivity {
                     mp.start();
                 }
             });
-        } catch (IOException e) {
 
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         /* Prepare the MediaPlayer
          * Automatically starts the track once prepared */
         mediaPlayer.prepareAsync();
+
+
+
+        /* Art work on clck-gesture listener
+         *          //TODO                       */
+        artWorkV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Clicked on Artwork ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        /* Previous Button on click listener TODO FIX INDEX
+         *          //TODO                       */
+        previousBtnV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                position--;
+                if (position < 0) {
+                    position = MainActivity.trackAdapter.getItemCount() - 1;
+                }
+                playTrack(MainActivity.trackAdapter.getItem(position));
+
+            }
+        });
+        /* Next Button on click listener TODO FIX INDEX
+         *          //TODO
+         *                                */
+
+
+        nextBtnV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (++position > MainActivity.trackAdapter.getItemCount() - 1) {
+                    position = 0;
+                }
+                playTrack(MainActivity.trackAdapter.getItem(position));
+            }
+        });
+
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    void release() {
         try {
             mediaPlayer.release();
             mediaPlayer = null;
         } catch (Exception e) {
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        //TODO ???
     }
 
 

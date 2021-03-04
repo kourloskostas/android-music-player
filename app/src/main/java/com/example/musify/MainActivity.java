@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Declare recyclerview
     RecyclerView tracksRV;
-    TrackAdapter trackAdapter;
+    static TrackAdapter trackAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         tracksRV = findViewById(R.id.rvTracks);
         tracksRV.setLayoutManager(new LinearLayoutManager(this));
+        tracksRV.addItemDecoration(new DividerItemDecoration(tracksRV.getContext(), DividerItemDecoration.VERTICAL));
+
 
         //Get tracks using FileManager
         FileManager fileManager = new FileManager(this);
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 /* On click go to Player Activity and play the track*/
                 Intent i = new Intent(MainActivity.this, PlayerActivity.class);
                 i.putExtra("TRACK", (Serializable) track);
+                i.putExtra("POSITION", position);
                 startActivity(i);
             }
         });

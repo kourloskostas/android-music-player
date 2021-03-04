@@ -12,8 +12,9 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="338dp"
-        android:layout_height="57dp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="30sp"
         android:autoSizeStepGranularity="2sp"
@@ -26,19 +27,19 @@
         android:textColor="@android:color/black"
         android:textSize="32dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintTop_toBottomOf="@+id/artWork" />
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/artWork"
         android:layout_width="322dp"
         android:layout_height="321dp"
         android:layout_marginTop="128dp"
         android:background="@drawable/ic_music_note"
+        android:backgroundTint="@android:color/darker_gray"
+        android:backgroundTintMode="screen"
         android:cropToPadding="true"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,15 +51,14 @@
         android:id="@+id/seekBar"
         android:layout_width="330dp"
         android:layout_height="37dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/black"
         android:fadingEdge="horizontal|vertical"
         android:progressTint="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintTop_toBottomOf="@+id/artist" />
 
     <TextView
         android:id="@+id/currenttime"
@@ -103,25 +103,42 @@
 
     <ImageButton
         android:id="@+id/play"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
         android:background="@null"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         android:scaleX="2"
         android:scaleY="2"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintVertical_bias="0.337"
         app:srcCompat="@drawable/ic_pause" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="194dp" />
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="88dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toEndOf="@+id/play"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:srcCompat="@drawable/ic_next" />
+
+    <ImageButton
+        android:id="@+id/previous"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="64dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/play"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:srcCompat="@drawable/ic_previous" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
