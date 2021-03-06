@@ -7,7 +7,7 @@ The app consists of two activities
 MainActivity displays your local saved audio Tracks.
 PlayerActivity manages playing your selected Track.
 
-<img src="Preview/main-activity.jpg" width="400" height="800"/>    <img src="Preview/player-activity.jpg" width="400" height="800"/>
+<img src="Preview/main-activity.jpg" width="400" height="730"/>    <img src="Preview/player-activity.jpg" width="400" height="730"/>
 
 ### Prerequisites
 
