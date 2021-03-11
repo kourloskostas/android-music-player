@@ -38,13 +38,13 @@ public class FileManager {
                     String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
                     String artworkpath = String.valueOf(Uri.parse("content://media/external/audio/media/" + id + "/albumart"));
 
-
-                    /* If artwork doesnt exist , use default TODO ???
-                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-                    mmr.setDataSource(artworkpath);
-                    try{mmr.getEmbeddedPicture();}
-                    catch(Exception e) {artworkpath = "default";}
+                    /* TODO CHECK IF ARTWORK EXISTS ,
+                    *   IF NOT SET ARTWORK PATH DEFAULT
+                    if(){
+                        artworkpath = "default";
+                    }
                     */
+
 
                     allTracks.add(new Track(name, artist, path, id, artworkpath));
 

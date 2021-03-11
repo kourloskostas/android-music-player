@@ -6,20 +6,19 @@
 
 
     <ImageView
-        android:id="@+id/trackArtwork"
+        android:id="@+id/artwork"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
         android:cropToPadding="true"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_music_note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/trackName"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -27,11 +26,11 @@
         android:text="Funky Monks"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/trackArtwork"
+        app:layout_constraintStart_toEndOf="@+id/artwork"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/artistName"
+        android:id="@+id/artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,12 +39,12 @@
         android:textAllCaps="false"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/trackArtwork"
-        app:layout_constraintTop_toBottomOf="@+id/trackName" />
+        app:layout_constraintStart_toEndOf="@+id/artwork"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
     <ImageButton
-        android:id="@+id/trackMore"
+        android:id="@+id/moreBtn"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:background="@null"

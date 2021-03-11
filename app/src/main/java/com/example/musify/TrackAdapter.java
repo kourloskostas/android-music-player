@@ -48,7 +48,8 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
         holder.artistNameV.setText(track.getArtistName());
 
         String artworkpath = track.getArtworkPath();
-        if (artworkpath != "default") { /* Default Artwork*/
+
+        if (!artworkpath.equals("default")) { /* Default Artwork*/
             holder.artworkV.setImageURI(Uri.parse(track.getArtworkPath()));
         }
 
@@ -87,10 +88,10 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
 
         ViewHolder(View itemView) {
             super(itemView);
-            trackNameV = itemView.findViewById(R.id.trackName);
-            artistNameV = itemView.findViewById(R.id.artistName);
-            artworkV = itemView.findViewById(R.id.trackArtwork);
-            moreBtnV = itemView.findViewById(R.id.trackMore);
+            trackNameV = itemView.findViewById(R.id.title);
+            artistNameV = itemView.findViewById(R.id.artist);
+            artworkV = itemView.findViewById(R.id.artwork);
+            moreBtnV = itemView.findViewById(R.id.moreBtn);
 
             moreBtnV.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,20 +100,17 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolder> 
                     //creating a popup menu
                     PopupMenu popup = new PopupMenu(context, moreBtnV);
                     //inflating menu from xml resource
-                    popup.inflate(R.layout.popup_menu);
+                    popup.inflate(R.layout.track_more);
                     //adding click listener
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-                                case R.id.one:
+                                case R.id.delete_itm:
                                     //handle menu1 click
                                     return true;
-                                case R.id.two:
+                                case R.id.rename_itm:
                                     //handle menu2 click
-                                    return true;
-                                case R.id.three:
-                                    //handle menu3 click
                                     return true;
                                 default:
                                     return false;

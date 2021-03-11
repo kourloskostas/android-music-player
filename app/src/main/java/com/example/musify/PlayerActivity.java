@@ -1,6 +1,7 @@
 package com.example.musify;
 
 import android.content.ContentUris;
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +56,7 @@ public class PlayerActivity extends AppCompatActivity {
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
                                     toMinutes((long) currenttime))));
 
-            seekBarV.setProgress((int) currenttime);
+            seekBarV.setProgress(currenttime);
             mediaHandler.postDelayed(this, 100);
         }
     };
@@ -151,7 +153,7 @@ public class PlayerActivity extends AppCompatActivity {
                 public void onPrepared(MediaPlayer mp) {
                     int finalTime = mediaPlayer.getDuration();
                     int startTime = mediaPlayer.getCurrentPosition();
-                    seekBarV.setMax((int) finalTime);
+                    seekBarV.setMax(finalTime);
                     total_timeV.setText(String.format("%d:%d ",
                             TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
                             TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
@@ -167,7 +169,7 @@ public class PlayerActivity extends AppCompatActivity {
                     );
 
                     // Set progress on the seek bar
-                    seekBarV.setProgress((int) startTime);
+                    seekBarV.setProgress(startTime);
 
                     /* Handlers for updating song time-slider */
                     mediaHandler.postDelayed(UpdateSongTime, 100);
@@ -205,6 +207,10 @@ public class PlayerActivity extends AppCompatActivity {
         /* Prepare the MediaPlayer
          * Automatically starts the track once prepared */
         mediaPlayer.prepareAsync();
+
+        ContextCompat.startForegroundService(
+                PlayerActivity.this.getApplicationContext(),
+                new Intent(PlayerActivity.this.getApplicationContext(), MediaSessionService.class));
 
 
 
